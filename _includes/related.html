@@ -1,0 +1,12 @@
+{%- if page.related -%}
+<section class="related" aria-labelledby="related-h">
+  <h2 id="related-h" class="side-title">Related articles</h2>
+  <ul class="plain">
+    {%- for slug in page.related -%}
+      {%- for a in site.articles -%}{%- if a.slug == slug and a.nav != false -%}
+      <li><a href="{{ a.url | relative_url }}">{{ a.title }}</a></li>
+      {%- endif -%}{%- endfor -%}
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}

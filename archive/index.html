@@ -1,0 +1,15 @@
+---
+layout: default
+title: Expedition archive
+permalink: /archive/
+---
+{%- assign list = site.expeditions | where_exp: "d", "d.nav != false" | sort: "expedition_id" -%}
+<div class="wrap narrow">
+  <h1 class="page-title">Expedition archive</h1>
+  <p class="lede">Dossiers and records of surveys, campaigns, and expeditions held by {{ site.institution }}. Some records are held in abridged form.</p>
+  {% if list.size > 0 %}
+  <ul class="entry-list plain">
+    {% for d in list %}<li><a href="{{ d.url | relative_url }}">{{ d.title }}</a> <span class="muted small">{{ d.expedition_id }}</span><br><span class="muted">{{ d.summary }}</span></li>{% endfor %}
+  </ul>
+  {% else %}<p class="notice">No expedition dossiers are available.</p>{% endif %}
+</div>

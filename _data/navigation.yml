@@ -1,0 +1,5 @@
+- { title: "Home", url: "/" }
+- { title: "Categories", url: "/categories/" }
+- { title: "Expedition Archive", url: "/archive/" }
+- { title: "Search", url: "/search/" }
+- { title: "About", url: "/about/" }

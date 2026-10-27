@@ -1,0 +1,3 @@
+{%- comment -%}Usage: {% include link.html to="slug" %} or {% include link.html to="slug" text="custom text" %}. Falls back to plain text if the article does not exist.{%- endcomment -%}
+{%- assign target = site.articles | where: "slug", include.to | first -%}
+{%- if target -%}[{{ include.text | default: target.title }}]({{ target.url | relative_url }}){%- else -%}{{ include.text | default: include.to }}{%- endif -%}

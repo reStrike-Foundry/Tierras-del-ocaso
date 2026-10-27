@@ -1,0 +1,10 @@
+{%- if page.status and page.status != "established" -%}
+{%- case page.status -%}
+{%- when "placeholder" -%}{%- assign msg = "Placeholder entry. This article marks where established material will be entered and contains no settled facts." -%}
+{%- when "provisional" -%}{%- assign msg = "Provisional entry. Contents are subject to revision." -%}
+{%- when "disputed" -%}{%- assign msg = "Disputed. Sources conflict on points described below." -%}
+{%- when "incomplete" -%}{%- assign msg = "Incomplete record. Some material is missing or withheld." -%}
+{%- else -%}{%- assign msg = page.status -%}
+{%- endcase -%}
+<p class="notice"><strong>Status: {{ page.status | capitalize }}.</strong> {{ msg }}</p>
+{%- endif -%}

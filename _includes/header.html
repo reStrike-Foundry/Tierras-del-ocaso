@@ -1,0 +1,23 @@
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      {% include emblem.html %}
+      <span class="brand-text"><span class="brand-title">{{ site.title }}</span><span class="brand-sub">{{ site.institution }}</span></span>
+    </a>
+    <form class="header-search" role="search" action="{{ '/search/' | relative_url }}" method="get">
+      <label for="hq" class="visually-hidden">Search the encyclopedia</label>
+      <input id="hq" type="search" name="q" placeholder="Search articles">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <nav class="primary-nav" aria-label="Primary">
+    <details class="nav-toggle">
+      <summary>Menu</summary>
+      <ul class="wrap">
+        {% for item in site.data.navigation %}
+        <li><a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </details>
+  </nav>
+</header>

@@ -1,0 +1,25 @@
+---
+layout: default
+---
+{%- assign all = site.articles | concat: site.expeditions | concat: site.records -%}
+{%- assign items = all | where_exp: "d", "d.category == page.category_key and d.nav != false" | sort: "title" -%}
+<div class="wrap cols">
+  {% assign category = page.category_key %}
+  <aside class="sidebar side-left" aria-label="Categories">
+    <h2 class="side-title">Categories</h2>
+    <ul class="plain">{% for c in site.data.categories %}<li><a href="{{ '/categories/' | append: c.key | append: '/' | relative_url }}"{% if c.key == page.category_key %} aria-current="true" class="current"{% endif %}>{{ c.title }}</a></li>{% endfor %}</ul>
+  </aside>
+  <section class="article">
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if items.size == 0 %}
+      <p class="notice">No entries have been filed under this category yet.</p>
+    {% else %}
+      <ul class="entry-list plain">
+      {% for d in items %}
+        <li><a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% if d.summary %}<span class="muted"> – {{ d.summary }}</span>{% endif %}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {{ content }}
+  </section>
+</div>

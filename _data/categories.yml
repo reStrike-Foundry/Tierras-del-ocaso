@@ -1,0 +1,11 @@
+# key = value used in `category:` front matter. Add/rename/reorder freely.
+- { key: history,    title: "History and Historical Events",     description: "Eras, conflicts, and turning points." }
+- { key: geography,  title: "Geography and Regions",             description: "Provinces, borders, and wilderness." }
+- { key: empire,     title: "The Empire and Its Institutions",   description: "Government, law, and public bodies." }
+- { key: orders,     title: "The Six Orders",                    description: "The knightly orders and their charters." }
+- { key: religion,   title: "Religion and the Twelve Gods",      description: "Deities, doctrines, and observances." }
+- { key: peoples,    title: "Peoples and Cultures",              description: "Communities, customs, and languages." }
+- { key: creatures,  title: "Creatures and Threats",             description: "Monsters, hostile powers, and dangers." }
+- { key: artifacts,  title: "Artifacts and Ancient Sites",       description: "Relics, ruins, and lost civilizations." }
+- { key: expeditions,title: "Expeditions and Exploration",       description: "Surveys, campaigns, and dossiers." }
+- { key: documents,  title: "Documents and Records",             description: "Reports, logs, and archival material." }

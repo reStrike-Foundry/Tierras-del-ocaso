@@ -1,0 +1,42 @@
+# ---- Site identity (placeholders: replace with campaign lore) ----
+title: "[ENCYCLOPEDIA NAME]"
+institution: "[INSTITUTION NAME]"
+description: "A reference collection of imperial history, geography, religion, institutions, peoples, and other subjects."
+
+# ---- GitHub Pages paths ----
+# Project site (username.github.io/repository-name): baseurl = "/repository-name", url = "https://username.github.io"
+# User/organization site or custom domain: baseurl = ""
+baseurl: "/repository-name"
+url: "https://username.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  toc_levels: 2..3
+
+collections:
+  articles:
+    output: true
+    permalink: /articles/:name/
+  expeditions:
+    output: true
+    permalink: /archive/:name/
+  records:
+    output: true
+    permalink: /archive/records/:name/
+  supplemental:
+    output: true
+    permalink: /archive/supplemental/:name/
+
+defaults:
+  - scope: { path: "", type: "articles" }
+    values: { layout: "article" }
+  - scope: { path: "", type: "expeditions" }
+    values: { layout: "dossier", category: "expeditions" }
+  - scope: { path: "", type: "records" }
+    values: { layout: "log", category: "documents" }
+  - scope: { path: "", type: "supplemental" }
+    values: { layout: "log", category: "documents", nav: false, noindex: true }
+
+exclude: [README.md, Gemfile, Gemfile.lock, vendor, node_modules]

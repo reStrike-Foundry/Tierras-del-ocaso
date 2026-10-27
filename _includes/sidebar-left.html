@@ -1,0 +1,8 @@
+<aside class="sidebar side-left" aria-label="Categories">
+  <h2 class="side-title">Categories</h2>
+  <ul class="plain">
+    {% for c in site.data.categories %}
+    <li><a href="{{ '/categories/' | append: c.key | append: '/' | relative_url }}"{% if page.category == c.key %} aria-current="true" class="current"{% endif %}>{{ c.title }}</a></li>
+    {% endfor %}
+  </ul>
+</aside>

@@ -1,0 +1,14 @@
+{%- comment -%} Builds a table of contents from h2 headings (kramdown adds ids). Usage: include toc.html html=content {%- endcomment -%}
+{%- assign parts = include.html | split: '<h2 id="' -%}
+{%- if parts.size > 2 -%}
+<nav class="toc" aria-label="Contents">
+  <h2 class="side-title">Contents</h2>
+  <ol>
+    {%- for p in parts offset: 1 -%}
+    {%- assign id = p | split: '"' | first -%}
+    {%- assign title = p | split: '</h2>' | first | split: '">' | last | strip_html -%}
+    <li><a href="#{{ id }}">{{ title }}</a></li>
+    {%- endfor -%}
+  </ol>
+</nav>
+{%- endif -%}

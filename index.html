@@ -1,0 +1,51 @@
+---
+layout: default
+title: Home
+---
+{%- assign everything = site.articles | concat: site.expeditions | concat: site.records -%}
+{%- assign visible = everything | where_exp: "d", "d.nav != false" -%}
+{%- assign featured = site.articles | where_exp: "d", "d.featured == true and d.nav != false" -%}
+{%- assign recent = visible | where_exp: "d", "d.updated" | sort: "updated" | reverse -%}
+{%- assign fdocs = site.expeditions | concat: site.records | where_exp: "d", "d.featured_doc == true and d.nav != false" -%}
+<div class="wrap">
+  <section class="intro" aria-labelledby="intro-h">
+    <h1 id="intro-h" class="page-title">{{ site.title }}</h1>
+    <p class="lede">{{ site.description }} Compiled and maintained by {{ site.institution }}.</p>
+    <form class="big-search" role="search" action="{{ '/search/' | relative_url }}" method="get">
+      <label for="home-q">Search article titles and text</label>
+      <div class="row"><input id="home-q" type="search" name="q" placeholder="For example: a region, an order, a deity"><button type="submit">Search</button></div>
+    </form>
+  </section>
+
+  <section aria-labelledby="cat-h">
+    <h2 id="cat-h" class="section-title">Browse by category</h2>
+    {% include category-cards.html %}
+  </section>
+
+  <div class="two-up">
+    <section aria-labelledby="feat-h">
+      <h2 id="feat-h" class="section-title">Featured articles</h2>
+      {% if featured.size > 0 %}
+      <ul class="plain feature-list">
+        {% for a in featured %}<li><a href="{{ a.url | relative_url }}">{{ a.title }}</a>{% if a.status == "placeholder" or a.status == "provisional" %} <span class="tag">{{ a.status }}</span>{% endif %}<br><span class="muted">{{ a.summary }}</span></li>{% endfor %}
+      </ul>
+      {% else %}<p class="muted">No articles are currently featured.</p>{% endif %}
+    </section>
+
+    <div>
+      <section aria-labelledby="rec-h">
+        <h2 id="rec-h" class="section-title">Recently updated</h2>
+        {% if recent.size > 0 %}
+        <ul class="plain">{% for a in recent limit: 6 %}<li><a href="{{ a.url | relative_url }}">{{ a.title }}</a> <span class="muted small">{{ a.updated | date: "%-d %b %Y" }}</span></li>{% endfor %}</ul>
+        {% else %}<p class="muted">No revision dates have been recorded. Add an <code>updated:</code> date to an article's front matter and it will appear here.</p>{% endif %}
+      </section>
+      <section aria-labelledby="doc-h">
+        <h2 id="doc-h" class="section-title">Featured documents</h2>
+        {% if fdocs.size > 0 %}
+        <ul class="plain">{% for d in fdocs %}<li><a href="{{ d.url | relative_url }}">{{ d.title }}</a><br><span class="muted small">{{ d.summary }}</span></li>{% endfor %}</ul>
+        {% endif %}
+        <p><a href="{{ '/archive/' | relative_url }}">Browse the expedition archive</a></p>
+      </section>
+    </div>
+  </div>
+</div>

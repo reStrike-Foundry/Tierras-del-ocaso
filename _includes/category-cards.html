@@ -1,0 +1,11 @@
+{%- assign all = site.articles | concat: site.expeditions | concat: site.records -%}
+<ul class="cards plain">
+  {%- for c in site.data.categories -%}
+  {%- assign n = all | where_exp: "d", "d.category == c.key and d.nav != false" | size -%}
+  <li class="card">
+    <h3><a href="{{ '/categories/' | append: c.key | append: '/' | relative_url }}">{{ c.title }}</a></h3>
+    <p>{{ c.description }}</p>
+    <p class="muted small">{{ n }} {% if n == 1 %}entry{% else %}entries{% endif %}</p>
+  </li>
+  {%- endfor -%}
+</ul>

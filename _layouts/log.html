@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{%- assign dossier = site.expeditions | where: "expedition_id", page.expedition | first -%}
+<div class="wrap cols">
+  {% include sidebar-left.html %}
+  <article class="article doc">
+    <header class="article-head">
+      <p class="kicker">{% if dossier %}<a href="{{ dossier.url | relative_url }}">{{ dossier.title }}</a>{% else %}<a href="{{ '/archive/' | relative_url }}">Expedition archive</a>{% endif %}</p>
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% if page.classification %}<p class="label-stamp">{{ page.classification }}</p>{% endif %}
+    </header>
+    <dl class="record-meta">
+      <div><dt>Record identifier</dt><dd>{{ page.record_id | default: "[RECORD ID]" }}</dd></div>
+      <div><dt>Author</dt><dd>{{ page.author | default: "[AUTHOR OR DESIGNATION]" }}</dd></div>
+      <div><dt>Date and time</dt><dd>{{ page.datetime | default: "[DATE/TIME UNKNOWN]" }}</dd></div>
+      <div><dt>Document type</dt><dd>{{ page.doc_type | default: "[DOCUMENT TYPE]" }}</dd></div>
+      <div><dt>Status</dt><dd>{{ page.status | default: "[original / copy / transcription / annotation]" }}</dd></div>
+    </dl>
+    <div class="record-text form-{{ page.form | default: 'formal' }}">{{ content }}</div>
+    {% if page.notes %}
+    <section class="editorial" aria-labelledby="ed-h"><h2 id="ed-h">Editorial and preservation notes</h2>
+      <ul>{% for n in page.notes %}<li>{{ n }}</li>{% endfor %}</ul></section>
+    {% endif %}
+  </article>
+  <aside class="sidebar side-right" aria-label="Related entries">
+    {% if dossier %}<h2 class="side-title">Expedition</h2><p><a href="{{ dossier.url | relative_url }}">{{ dossier.title }}</a></p>{% endif %}
+    {% include related.html %}
+  </aside>
+</div>

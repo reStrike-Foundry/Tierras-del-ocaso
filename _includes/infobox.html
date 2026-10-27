@@ -1,0 +1,10 @@
+{%- if page.infobox -%}
+<aside class="infobox" aria-label="Summary information">
+  <h2 class="infobox-title">{{ page.infobox_title | default: page.title }}</h2>
+  <dl>
+    {%- for row in page.infobox -%}
+    <dt>{{ row.label }}</dt><dd>{{ row.value }}</dd>
+    {%- endfor -%}
+  </dl>
+</aside>
+{%- endif -%}

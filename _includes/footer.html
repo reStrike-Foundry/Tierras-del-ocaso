@@ -1,0 +1,7 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>{{ site.title }}</strong>, maintained by {{ site.institution }}.</p>
+    <p class="muted">Editorial notice: entries reflect the collection as currently held and are revised as records are verified. Some archival materials are held in abridged form.</p>
+    <p class="muted"><a href="{{ '/about/' | relative_url }}">About</a> · <a href="{{ '/categories/' | relative_url }}">Categories</a> · <a href="{{ '/archive/' | relative_url }}">Expedition archive</a>{% if site.time %} · Site built {{ site.time | date: "%-d %B %Y" }}{% endif %}</p>
+  </div>
+</footer>

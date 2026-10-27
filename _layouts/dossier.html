@@ -1,0 +1,54 @@
+---
+layout: default
+---
+{%- assign my_records = site.records | where_exp: "r", "r.expedition == page.expedition_id and r.nav != false" | sort: "record_id" -%}
+<div class="wrap cols">
+  {% include sidebar-left.html %}
+  <article class="article doc">
+    <header class="article-head">
+      <p class="kicker"><a href="{{ '/archive/' | relative_url }}">Expedition archive</a></p>
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% if page.classification %}<p class="label-stamp">{{ page.classification }}</p>{% endif %}
+      {% if page.summary %}<p class="lede">{{ page.summary }}</p>{% endif %}
+      {% include status.html %}
+    </header>
+    <table class="dossier-table">
+      <caption class="visually-hidden">Expedition particulars</caption>
+      <tbody>
+        <tr><th scope="row">Expedition identifier</th><td>{{ page.expedition_id | default: "[EXPEDITION ID]" }}</td></tr>
+        <tr><th scope="row">Expedition name</th><td>{{ page.expedition_name | default: "[EXPEDITION NAME]" }}</td></tr>
+        <tr><th scope="row">Authorization</th><td>{{ page.authority | default: "[AUTHORIZING AUTHORITY]" }}</td></tr>
+        <tr><th scope="row">Date or period</th><td>{{ page.period | default: "[DATE OR PERIOD]" }}</td></tr>
+        <tr><th scope="row">Destination</th><td>{{ page.destination | default: "[DESTINATION]" }}</td></tr>
+        <tr><th scope="row">Stated objective</th><td>{{ page.objective | default: "[STATED OBJECTIVE]" }}</td></tr>
+        <tr><th scope="row">Known outcome</th><td>{{ page.outcome | default: "[KNOWN OUTCOME]" }}</td></tr>
+        <tr><th scope="row">Casualty summary</th><td>{{ page.casualties | default: "[CASUALTY SUMMARY]" }}</td></tr>
+      </tbody>
+    </table>
+    <h2>Personnel and roles</h2>
+    {% if page.personnel %}
+    <table class="plain-table"><thead><tr><th scope="col">Name or designation</th><th scope="col">Role</th><th scope="col">Recorded fate</th></tr></thead><tbody>
+      {% for p in page.personnel %}<tr><td>{{ p.name }}</td><td>{{ p.role }}</td><td>{{ p.fate }}</td></tr>{% endfor %}
+    </tbody></table>
+    {% else %}<p>[PERSONNEL ROSTER NOT YET ENTERED]</p>{% endif %}
+    <div class="prose">{{ content }}</div>
+    <h2>Available records</h2>
+    {% if my_records.size > 0 %}
+    <ul class="record-list plain">
+      {% for r in my_records %}
+      <li><a href="{{ r.url | relative_url }}">{{ r.title }}</a>
+        <span class="muted small">{{ r.record_id }}; {{ r.doc_type }}; {{ r.status | default: "status unrecorded" }}</span></li>
+      {% endfor %}
+    </ul>
+    {% else %}<p>No records have been filed for this expedition.</p>{% endif %}
+    <section class="provenance" aria-labelledby="prov-h">
+      <h2 id="prov-h">Editorial notes and provenance</h2>
+      <p>{{ page.provenance | default: "[PROVENANCE: describe how these records came into the collection, who has held them, and what has been withheld or abridged.]" }}</p>
+    </section>
+    <footer class="article-foot muted small">{% if page.updated %}Last updated {{ page.updated | date: "%-d %B %Y" }}.{% else %}No revision date recorded.{% endif %}</footer>
+  </article>
+  <aside class="sidebar side-right" aria-label="Related entries">
+    {% include toc.html html=content %}
+    {% include related.html %}
+  </aside>
+</div>
